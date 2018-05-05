@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CSCI 485 Assignment 1: README</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tristan W. Bonsor">
+    <meta name="description" content="README for Assignment 1.">
+
+    <style>
+      body {background: #FFF; padding: 5px;}
+      html {background: #000;}
+      section {background: #FEFEFE; border-bottom: 1px solid black; }
+      samp {background: #FEE;}
+      .example samp {background: #EEE; display: block; margin:0; margin-left: 10px; margin-right: 10px;}
+      .warning {background: #F00; font-weight: bold;}
+    </style>
+  </head>
+
+  <body id="readme">
+    <section id="title">
+      <header role="banner">
+	<h1>README</h1>
+	<h2>CSCI 485 Assignment 1: Rubik's Cube Solver</h2>
+	<p><strong>Author:</strong> Tristan W. Bonsor</p>
+	<p><strong>Last Updated:</strong> Oct. 6th, 2013
+      </header>
+    </section>
+
+    <section id="toc">
+      <h3>0. Table of Contents</h3>
+      <ol>
+	<li><a href="#compilation">Compilation</a></li>
+	<li><a href="#execution">Execution</a></li>
+	<li><a href="#input">Input</a></li>
+	<li><a href="#output">Output</a></li>
+	<li><a href="#state-encoding">State Encoding</a></li>
+	<li><a href="#heuristics">Heuristics</a></li>
+	<li><a href="#successor-function">Successor Function</a></li>
+	<li><a href="#known-bugs">Known Bugs</a></li>
+	<li><a href="#additional-comments">Additional Comments</a></li>
+      </ol>
+    </section>
+
+    <section id="compilation">
+      <h3>1. Compilation</h3>
+      <p>(<a href="#toc">Table of Contents</a>)</p>
+
+      <p>To compile both the Rubik's cube solver and the Rubik's cube configuration generator, execute the <samp>make</samp> command from the <samp>as01</samp> directory:</p>
+      <div class="example">
+	<samp>kidthales@bespin:~/csci/485AI/as01$ make</samp>
+      </div>
+      <p>This will produce two executables, <samp>generator</samp> and <samp>rube</samp>, in the <samp>as01</samp> directory.</p>
+      <p>Some <samp>make</samp> targets include <samp>all</samp>, <samp>rube</samp>, <samp>generator</samp>, <samp>mem-test</samp>, <samp>clean</samp>, and <samp>dist-clean</samp>.</p>
+    </section>
+
+    <section id="execution">
+      <h3>2. Execution</h3>
+      <p>(<a href="#toc">Table of Contents</a>)</p>
+
+      <h4>Rubik's cube solver</h4>
+
+      <p>To execute the solver after compilation:</p>
+
+      <div class="example">
+	<samp>kidthales@bespin:~/csci/485AI/as01$ ./rube INPUT_FILE</samp>
+      </div>
+
+      <p>where <samp>INPUT_FILE</samp> is a properly formated data file representing the initial configuration of a Rubik's cube (see <a href="#input">3. Input</a>).</p>
+
+      <p>To display each search node as it is inspected (verbose mode):</p>
+
+      <div class="example">
+	<samp>kidthales@bespin:~/csci/485AI/as01$ ./rube -v INPUT_FILE</samp>
+      </div>
+
+      <h4>Rubik's cube generator</h4>
+
+      <p>To execute the generator after compilation:</p>
+
+      <div class="example">
+	<samp>kidthales@bespin:~/csci/485AI/as01$ ./generator N M</samp>
+      </div>
+
+      <p>where <samp>N</samp> is a positive integer indicating the cardinality of the Rubik's cube (i.e. <samp>N = 3</samp> implies a 3x3x3 cube) and <samp>M</samp> is the number of random moves to scramble a Rubik's cube.</p>
+      <p><strong>Note:</strong> Output is sent to <samp>stdout</samp>; typically you will want to redirect output to a file:</p>
+
+      <div class="example">
+	<samp>kidthales@bespin:~/csci/485AI/as01$ ./generator 3 8 &gt; config.rbk</samp>
+      </div>
+    </section>
+
+    <section id="input">
+      <h3>3. Input</h3>
+      <p>(<a href="#toc">Table of Contents</a>)</p>
+
+      <h4>Rubik's cube solver</h4>
+      <p>It is assumed that program input will take the form of a properly formatted data file. The data file will contain a Rubik's cube configuration described by the following EBNF grammar:</p>
+
+      <div class="example">
+	<samp>RubikCube = Cardinality , NewLine , Faces ;</samp>
+	<samp>Cardinality = "2" | "3" | "4" ;</samp>
+	<samp>NewLine = "\n" ;</samp>
+	<samp>Faces = 6 * { Face } ;</samp>
+	<samp>Face = FaceId , NewLine , Cardinality * { Row } ;</samp>
+	<samp>FaceId = "FRONT" | "RIGHT" | "TOP" | "BOTTOM" | "LEFT" | "BACK" ;</samp>
+	<samp>Row = Cardinality * { Color } , NewLine ;</samp>
+	<samp>Color = "W" | "R" | "B" | "O" | "G" | "Y" ;</samp>
+      </div>
+
+      <p>Examine the output of the Rubik's cube generator (<samp>generator</samp>) for examples.</p>
+
+      <p><strong>Note:</strong> Each face is encoded with respect to a "standard" unfolding of a Rubik's cube. Checks are performed to ensure that the colors and their numbers are valid. Additionally, exactly one of each face is allowed.</p>
+
+      <p><span class="warning">WARNING: No validation of corner and edge cubies is performed!</span></p>
+  </section>
+
+    <section id="output">
+      <h3>4. Output</h3>
+      <p>(<a href="#toc">Table of Contents</a>)</p>
+
+      <h4>Rubik's cube solver</h4>
+      <p>In regular mode, output will be produced upon the discovery of a solution. A listing of the moves (and the resulting states) that solve the Rubik's cube is displayed.</p>
+      <p>In verbose mode, output is produced for each generated search node that is inspected. When a solution is discovered it is displayed as described above.</p>
+
+      <p><span class="warning">WARNING: This program will not halt until a solution is discovered. For those Rubik's cube configurations with invalid corner cubies, this program may run infinitely.</span></p>
+
+      <p><span class="warning">WARNING: This program must store each node that is inspected in order to build a solution upon discovering a goal state (tracing back up the tree to the initial state). Thus, memory usage can and will become prohibitive for shared operating environments (see <a href="#known-bugs">Known Bugs</a>).</span></p>
+
+      <h4>Rubik's cube generator</h4>
+      <p>The output of the generator is suitable for creating random Rubik's cube configurations of varying difficulty. The output is designed to be used with the Rubik's cube solver and was instrumental for the final phase of testing.</p>
+    </section>
+
+    <section id="state-encoding">
+      <h3>5. State Encoding</h3>
+      <p>(<a href="#toc">Table of Contents</a>)</p>
+
+      <p>State (a given Rubik's cube configuration) is encoded as a string of characters limited to <samp>'B'</samp>, <samp>'G'</samp>, <samp>'O'</samp>, <samp>'R'</samp>, <samp>'W'</samp>, and <samp>'Y'</samp> (blue, green, orange, red, white, and yellow respectively). It is a linear mapping of the 3D arrangement of the colors. It is ordered by face with each face ordered by rows (top to bottom of the cube face). The faces are ordered:</p>
+
+      <ul>
+	<li>0 FRONT</li>
+	<li>1 RIGHT</li>
+	<li>2 TOP</li>
+	<li>3 BOTTOM</li>
+	<li>4 LEFT</li>
+	<li>5 BACK</li>
+      </ul>
+
+      <p><strong>Note:</strong> When in doubt about the orientation of a cube face or some component thereof, assume it is with respect to the "front" face of the Rubik's cube.</p>
+    </section>
+
+    <section id="heuristics">
+      <h3>6. Heuristics</h3>
+      <p>(<a href="#toc">Table of Contents</a>)</p>
+
+      <p>Simple heuristics are implemented as follows:</p>
+
+      <div class="example">
+	<samp>For a given state s of an nxnxn Rubik's cube (all rational expressions are 'floored' to the nearest integer):</samp>
+	<samp>Let c = 6n^2, m = the sum of the greatest count of one color on each cube face, and r = total number of colors per cube face per cube face.</samp>
+	<samp>Then h(s) = ((c - m) / n) + r - 1.</samp>
+	<samp>Thus for a 3x3x3 Rubik's cube:</samp>
+	<samp>Estimated Worst Case: c = 6(3)^2 = 54, m = 19 (maximum 3 of one color on 5 faces with a maximum of 4 on the remaining face), and r = 36 / 6</samp>
+	<samp>so h(s) = ((54 - 19) / 3) + (36 / 6) - 1 = (35 / 3) + 6 - 1 = 11 + 5 = 16.</samp>
+	<samp>Best Case: h(s) = 0 (solved).</samp>
+      </div>
+
+      <p>This heuristic works well enough for Rubik's cube configurations that are up to about 9 moves away from a solution.</p>
+
+      <p>The purpose of this heuristic is three-fold: It is easy to understand, quick, and it is an attempt at keeping costs admissable (although they may be too low on average). The next step would be to implement manhattan distances for heuristic calculations, but that raises additional concerns to keep calculations in linear time; an idea of where a given cubie exists in a solved state is required.</p>
+    </section>
+
+    <section id="successor-function">
+      <h3>7. Successor Function</h3>
+      <p>(<a href="#toc">Table of Contents</a>)</p>
+
+      <p>The successor function for a given Rubik's cube problem creates a list of all configurations (states) reachable, via valid actions, from a given state. In the case of a 3x3x3 Rubik's cube we have 3 actions (rotations in the xy, yz, and zx planes), with 2 different directions for each, all occuring on each row, rank, and column. Thus there are 18 different actions (generalized to 6n actions for an nxnxn cube) so there are 18 different successors for each state.</p>
+
+      <p>For each rotation plane it is important to remember when a cube face must be rotated as well.</p>
+
+      <p>The successor function has been exhaustively tested for 2x2x2 and 3x3x3 cubes (verification of 30 successors in total). Since test cases would have to be generated by hand to be sure of initial accuracy, successor function verification was performed by hand and then additionally verified through the use of the <samp>generator</samp> and <samp>rube</samp> programs (i.e. ensuring a 9 move scrambled Rubik's cube can be solved in 9 moves).</p>
+
+      <p>Due to the choice of state encoding and corresponding cube face orientations thereof, some of the rotations involve slightly non-trivial logic (mainly integer arithmetic mapping to and from different valid positions of the encoding). This caused an hour or two of debugging with gdb.</p>
+    </section>
+
+    <section id="known-bugs">
+      <h3>8. Known Bugs</h3>
+      <p>(<a href="#toc">Table of Contents</a>)</p>
+
+      <p>Due to the inexact nature of the heuristic function, many search nodes may be generated and visited before a solution is discovered. For Rubik's cube configurations that are about 9 or more moves away from being solved, a prohibitive amount of memory may be used. Thus, do not execute <samp>rube</samp> on a shared operating environment (such as <samp>otter</samp>) unless the Rubik's cube problem is simpler in nature.</p>
+
+      <p>As stated earlier, no verification of the validity of a Rubik's cube's compnent corner and edge cubies is performed. Combine this fact with the above paragraph to conclude that this program may not halt given certain forms of (invalid) input. To be sure that a given Rubik's cube problem is solvable, use <samp>generator</samp> to create an initial (valid) configuration.</p> 
+    </section>
+
+    <section id="additional-comments">
+      <h3>9. Additional Comments</h3>
+      <p>(<a href="#toc">Table of Contents</a>)</p>
+
+      <p>Attempts have been made to keep all source code files formated to 80 characters wide; unfortunately the verbosity of C++ templates (among other things) have necessitated the need for some extended source code lines.</p>
+
+      <p>The Rubik's cube solver and generator can be used for working with 2x2x2, 3x3x3, and 4x4x4 cubes. The suite of programs are designed to work with Rubik's cubes of arbitrary size.</p>
+
+      <p>On a pedagogical note, this assignment has been a good refresher on some of the finer points of C++ programming, chiefly the combination of polymorphism and template classes. Special consideration was necessary to utilize sub-classed search nodes that are linked - passing the sub-class's type as a template argument to the parent class was the ultimate solution. This was also a good opportunity to work with some parts of the new C++11 standard library (chiefly shared pointers, tuples, and unordered maps).</p>
+    </section>
+  </body>
+</html>

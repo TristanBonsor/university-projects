@@ -1,0 +1,77 @@
+/*
+ * Defines.hpp
+ * Constant value definitions.
+ *
+ * Copyright (C) 2014 Tristan W. Bonsor
+ */
+
+#ifndef DEFINES_HPP_
+#define DEFINES_HPP_
+
+/*
+ * OutputManager constants.
+ */
+
+#define PI 3.14159265f
+#define RADIANS_TO_DEGREES 180.0f / PI
+
+#define MAX_COS_ARGUMENT 1.0f
+#define MIN_COS_ARGUMENT -1.0f
+
+#define POWER2 2.0f
+#define DIVIDE2 2.0f
+
+#define NEAR_Z 0.0f
+#define FAR_Z 512.0f
+
+#define CAMERA_RADIUS FAR_Z / 2.0f
+#define CAMERA_FIELD_OF_VIEW_CONVERSION 2.0f * RADIANS_TO_DEGREES
+
+#define DEFAULT_CAMERA_LOOK_AT 0.0f, 0.0f, CAMERA_RADIUS, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f
+
+#define DEFAULT_AXIS_OF_REVOLUTION 0.0f, 1.0f, 0.0f
+
+#define MAX_REVOLUTION_SLICES 32
+#define REVOLUTION_SLICE_DENOMINATOR 16.0f
+
+#define CONTROL_POINT_SIZE 5.0f
+
+#define BEZIER_POINTS_PER_SEGMENT 10
+
+#define POSITIVE_X_AXIS CAMERA_RADIUS, 0.0f, 0.0f
+#define NEGATIVE_X_AXIS -CAMERA_RADIUS, 0.0f, 0.0f
+#define POSITIVE_Y_AXIS 0.0f, CAMERA_RADIUS, 0.0f
+#define NEGATIVE_Y_AXIS 0.0f, -CAMERA_RADIUS, 0.0f
+#define POSITIVE_Z_AXIS 0.0f, 0.0f, CAMERA_RADIUS
+#define NEGATIVE_Z_AXIS 0.0f, 0.0f, -CAMERA_RADIUS
+
+#define COLOR_RED 1.0f, 0.0f, 0.0f
+#define COLOR_GREEN 0.0f, 1.0f, 0.0f
+#define COLOR_BLUE 0.0f, 0.0f, 1.0f
+#define COLOR_GREY 0.5f, 0.5f, 0.5f
+
+#define NUM_OPENGL_MATRIX_ENTRIES 16
+
+#define OPENGL_MATRIX_ENTRY_11 0
+#define OPENGL_MATRIX_ENTRY_12 1
+#define OPENGL_MATRIX_ENTRY_13 2
+#define OPENGL_MATRIX_ENTRY_21 4
+#define OPENGL_MATRIX_ENTRY_22 5
+#define OPENGL_MATRIX_ENTRY_23 6
+#define OPENGL_MATRIX_ENTRY_31 8
+#define OPENGL_MATRIX_ENTRY_32 9
+#define OPENGL_MATRIX_ENTRY_33 10
+
+/*
+ * WindowManager constants.
+ */
+
+#define MAIN_WINDOW_X 100
+#define MAIN_WINDOW_Y 100
+
+#define MAIN_WINDOW_WIDTH 512
+#define MAIN_WINDOW_HEIGHT 512
+
+#define MAIN_WINDOW_TITLE "CSCI 405 - Assignment 1"
+
+#endif /* DEFINES_HPP_ */

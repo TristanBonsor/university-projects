@@ -1,0 +1,275 @@
+body {
+	font: 0.7em arial, helvetica, sans-serif;
+	background: #bbb;
+}
+
+header h1 {
+	padding-left: 1em;
+	padding-top: 0.5em;
+}
+
+footer p {
+	text-align: center;
+}
+
+fieldset {
+	border-radius: 1em;	
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+
+	margin-bottom: 1em;
+	margin-top: 1em;
+
+	background: #ddd;
+}
+
+fieldset fieldset {
+	display: inline-block;
+	float: left;
+}
+
+fieldset p {
+	padding: 0.5em;
+	background: #eee;
+	text-align: center;
+}
+
+#pageContainer {
+	width: 90%;
+	margin: 0 auto;
+	background: #ddd;
+	border: 1px solid black;
+
+	border-radius: 1em;
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+}
+
+#mainContent {
+	width: 90%;
+	margin: 0 auto;
+}
+
+#userManagement {
+	display: inline-block;
+	padding-right: 10px;
+	border: 1px solid black;
+
+	border-radius: 1em;
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+}
+
+#accessDenied {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid black;
+
+	border-radius: 1em;
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+}
+
+#backupButton {
+	float: right;
+	margin-right: 1em;
+}
+
+#toggleUiDisplayButton {
+	float: right;
+}
+
+#accessTabsetContainer, #outerUiContainer {
+	background: #fff;
+}
+
+#recordTabsetContainer {
+	padding-top: 1em;
+}
+
+#innerUiContainer {
+	padding-top: 1em;
+	background: #fff;
+}
+
+#searchResultsContainer {
+	margin-top: 1em;
+}
+
+#searchResultsScrollBox {
+	background: #fff;
+	height: 400px;
+	overflow-y: auto;
+	border: 1px solid black;
+	border-radius: 1em;
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+	box-shadow: 2.5px 0px 5px 1px #888;
+	-moz-box-shadow: 2.5px 0px 5px 1px #888;
+	-webkit-box-shadow: 2.5px 0px 5px 1px #888;
+}
+
+#searchResultsScrollBox form > fieldset {
+	margin: 2em;
+	box-shadow: 2.5px 0px 5px 1px #888;
+	-moz-box-shadow: 2.5px 0px 5px 1px #888;
+	-webkit-box-shadow: 2.5px 0px 5px 1px #888;
+}
+
+#searchResultsScrollBox form > fieldset > legend {
+	box-shadow: 2.5px 0px 5px 1px #888;
+	-moz-box-shadow: 2.5px 0px 5px 1px #888;
+	-webkit-box-shadow: 2.5px 0px 5px 1px #888;
+}
+
+#shadowBox form > fieldset {
+	margin: 2em;
+	border: none;
+	box-shadow: 2.5px 0px 5px 1px #888;
+	-moz-box-shadow: 2.5px 0px 5px 1px #888;
+	-webkit-box-shadow: 2.5px 0px 5px 1px #888;
+}
+
+#shadowBox form > fieldset > legend {
+	border: none;
+}
+
+.thumbnail {
+	max-height: 75px;
+	max-width: 100px;
+}
+
+.formTable {
+	display: table;
+	width: 100%;
+}
+
+.formRow {
+	display: table-row;
+}
+
+.formCell {
+	display: table-cell;
+}
+
+.tabset {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.tabset li {
+	float: left;
+	border:  1px solid #bbb;
+	border-bottom-width: 0;
+	margin: 0;
+
+	border-top-left-radius: 1em;
+	-webkit-border-top-left-radius: 1em;
+	-moz-border-top-left-radius: 1em;
+
+	border-top-right-radius: 1em;
+	-webkit-border-top-right-radius: 1em;
+	-moz-border-top-right-radius: 1em;
+}
+
+.tabset a {
+	text-decoration: none;
+	display: block;
+	background: #eee;
+	padding: 0.24em 0.5em;
+	color: #00c;
+	width: 8em;
+	text-align: center;
+
+	border-top-left-radius: 1em;
+	-webkit-border-top-left-radius: 1em;
+	-moz-border-top-left-radius: 1em;
+
+	border-top-right-radius: 1em;
+	-webkit-border-top-right-radius: 1em;
+	-moz-border-top-right-radius: 1em;
+}
+
+.tabset a:hover {
+	background: #ddf
+}
+
+.tabset .selectedTab {
+	border-color: black;
+}
+
+.tabset .selectedTab a {
+	position: relative;
+	top: 1px;
+	background: white;
+	color: black;
+	font-weight: bold;
+}
+
+.accessTab, .recordTab {
+	box-shadow: 2.5px 0px 5px 1px #888;
+	-moz-box-shadow: 2.5px 0px 5px 1px #888;
+	-webkit-box-shadow: 2.5px 0px 5px 1px #888;
+}
+
+.selectedTab {
+	position: relative;
+	z-index:10;
+}
+
+.uiContainer {
+	border: 1px solid black;
+	clear: both;
+	padding: 0 1em;
+
+	border-top-right-radius: 1em;
+	-webkit-border-top-right-radius: 1em;
+	-moz-border-top-right-radius: 1em;
+
+	border-bottom-right-radius: 1em;
+	-webkit-border-bottom-right-radius: 1em;
+	-moz-border-bottom-right-radius: 1em;
+
+	border-bottom-left-radius: 1em;
+	-webkit-border-bottom-left-radius: 1em;
+	-moz-border-bottom-left-radius: 1em;
+
+	margin-bottom: 1em;
+	
+	box-shadow: 2.5px 0px 5px 1px #888;
+	-moz-box-shadow: 2.5px 0px 5px 1px #888;
+	-webkit-box-shadow: 2.5px 0px 5px 1px #888;
+}
+
+.selectedUi {
+	border-top-left-radius: 1em;
+	-webkit-border-top-left-radius: 1em;
+	-moz-border-top-left-radius: 1em;
+	background: #eee;
+}
+
+.selectedUi > form {
+	padding-top: 1em;
+}
+
+.formTitle {
+	position: relative;
+	top: -0.5em;
+	font-size: 1.2em;
+	font-weight: bold;
+	padding: 0.24em 1em;
+	background: #ddd;
+	border-top: inherit;
+	border-left: inherit;
+	border-right: inherit;
+	
+	border-top-left-radius: inherit;
+	-webkit-border-top-left-radius: inherit;
+	-moz-border-top-left-radius: inherit;
+	
+	border-top-right-radius: inherit;
+	-webkit-border-top-right-radius: inherit;
+	-moz-border-top-right-radius: inherit;
+}

@@ -1,0 +1,64 @@
+Design document for CSCI 460 Assignment 1
+
+
+Overview
+========
+
+Choice of language for this assignment is Python; it has suitable facilities for
+rapid application developement of network applications.
+
+There are three source files: client.py, define.py, and server.py.
+
+client.py contains source code for executing a client program.
+
+define.py contains definitions for commands and message transmission headers
+used by the clients and server.
+
+server.py contains source code for executing the server program.
+
+Since the client and server programs both effectively work as a server, the
+Client and Server classes (defined in client.py and server.py respectively)
+inherit from the TCP SocketServer provided by the Python SocketServer module;
+since messaging between clients is asynchronous and the server must handle
+multiple connections, a threading mix-in is utilized to provide for asynchronous
+message handling in the clients and allows for multiple clients to connect and
+interact with the server. Note that once a client connects and registers with a
+server, it will remain connected until the client quits or the server sends the
+shutdown command.
+
+Given that the clients have the facility to recieve messages asynchronously, a
+user interface built solely on stdin and stdout is not sufficient for a seamless
+user experience; thus clients make use of an ncurses based interface.
+
+
+Inter-Program Communication
+===========================
+
+Communication between programs uses strictly ascii strings. Reserved words are
+used to provide message context and one level of message field delineation
+(whitespace is used for delineation within a field).
+
+    Command                          Message(s) Exchanged
+================================================================================
+help           | '__help__ <string>' sent from client to its own output socket.
+               |
+list           | '__list__' sent from client to server. Server responds (same
+               |connection) with a string of client names delimited by
+               |whitespace. '__list__ <clientnames>' sent from client to its own
+               |output socket.
+               |
+quit           | '__quit__ <sendername>' sent from client to server. '__down__'
+               |sent from client to its own shutdown socket.
+               |
+postcard       | '__post__ <sendername>__end__<clientnames>__end__<message>'
+               |sent from client to server. '__post__ <sendername> <message>'
+               |sent from server to output sockets of listed clients specified
+               |in <clientnames>.
+               |
+privatemessage | '__priv__ <clientname>' sent from client to server.
+               |'<ip> <port>' sent from server back to client (over same
+               |connection) if <clientname> is registered with server,
+               |'__fail__' is sent otherwise. If '<ip> <port>' is received from
+               |server then client will send '__priv__ <sendername> <message>'
+               |to desired destination client output socket.
+================================================================================

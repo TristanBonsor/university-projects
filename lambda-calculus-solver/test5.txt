@@ -1,0 +1,8 @@
+Given:
+0 = lf.(ly.y)
+1 = lf.(ly.(f y))
+2 = lf.(ly.(f (f y)))
+3 = lf.(ly.(f(f(f y))))
+succ = lz.(lf.(ly.(f((z f)y))))
+Solve:
+succ 0

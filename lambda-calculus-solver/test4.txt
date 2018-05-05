@@ -1,0 +1,6 @@
+Given:
+not = lx.((x false)true)
+true = lx.(ly.x)
+false = lx.(ly.y)
+Solve:
+not (not true)

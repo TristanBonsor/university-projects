@@ -1,0 +1,29 @@
+/* This query returns a list of users the specified user ('derp' in this case) 
+   has replied to, what time the reply was made and what was said.
+*/
+
+SELECT PU.user_name as replied_to, CM.creation_time as reply_time, CM.message_text as you_said  
+FROM MessageLevelView CM  
+	JOIN ChildOf CO ON CO.child_id = CM.message_id 
+	JOIN MessageLevelView PM ON CO.parent_id = PM.message_id 
+	JOIN User PU ON PM.user_id = PU.user_id
+	JOIN User CU ON CM.user_id = CU.user_id
+WHERE CU.user_name = 'derp'
+ORDER BY reply_time DESC;
+
+/* 
+Test output:
+
++------------+---------------------+----------+
+| replied_to | reply_time          | you_said |
++------------+---------------------+----------+
+| derp       | 2012-04-02 19:26:05 | farkwar  |
+| UserName0  | 2012-04-02 21:37:21 | hullo!   |
++------------+---------------------+----------+
+2 rows in set (49.52 sec)
+
+In our test database, derp has only replied to two users.  Him/herself and UserName0
+
+*/
+
+

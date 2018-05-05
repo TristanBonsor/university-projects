@@ -1,0 +1,71 @@
+==> init_forum-0.6.sql <==
+/*******************************************************************************
+ * File:    init_forum-0.6.sql
+ * Created: Wed, Mar 28 at 13:30.53 PST
+ * Author:  Tristan W. Bonsor 536 865 512; Craig Burnett 515 766 558
+ * Version: 0.6
+ *
+ * Description: This is the master initialization script for the whole project. 
+ * 		It destroys and recreates all objects and data from scratch
+ ******************************************************************************/
+
+
+==> init_forum_constraints-0.6.sql <==
+/***************************************************************************************
+ * File:    init_forum_constraints-0.6.sql
+ * Created: Wed, Mar 28 at 13:30.53 PST
+ * Author:  Tristan W. Bonsor 536 865 512; Craig Burnett 515 766 558
+ * Version: 0.6
+ *
+ * Description: Slave script (run by init_forum-V.v.sql) 
+ * 		Creates additional constraints not created by init_forum_schema-V.v.sql
+ **************************************************************************************/
+
+
+==> init_forum_data-0.6.sql <==
+/*******************************************************************************
+ * File:    init_forum_data-0.6.sql
+ * Created: Wed, Mar 28 at 22:30.53 PST
+ * Author:  Tristan W. Bonsor 536 865 512; Craig Burnett 515 766 558
+ * Version: 0.6
+ *
+ * Description: Slave script (run by init_forum-V.v.sql) 
+ *		Inserts test data.
+ ******************************************************************************/
+
+
+==> init_forum_procedures-0.6.sql <==
+/*******************************************************************************
+ * File:    init_forum_procedures-0.6.txt
+ * Created: Wed, Mar 28 at 22:30.53 PST
+ * Author:  Tristan W. Bonsor, 536 865 512; Craig Burnett 515 766 558
+ * Version: 0.6
+ *
+ * Description: Slave script (run by init_forum-V.v.sql)
+ * 		Creates All Functions and Procedures
+ ******************************************************************************/
+
+
+==> init_forum_schema-0.6.sql <==
+/*******************************************************************************
+ * File:    init_forum_schema-0.6.sql
+ * Created: RWed Mar 28 at 22:30.53 PST
+ * Author:  Tristan W. Bonsor 536 865 512; Craig Burnett 515 766 558
+ * Version: 0.6
+ *
+ * Description: Slave script (run by init_forum-V.v.sql)
+ * 		Creates base tables and views.
+ ******************************************************************************/
+
+
+==> init_forum_triggers-0.6.sql <==
+/*******************************************************************************
+ * File:    init_forum_triggers-0.6.sql
+ * Created: Wed, Mar 28 at 13:30.53 PST
+ * Author:  Tristan W. Bonsor 536 865 512; Craig Burnett 515 766 558
+ * Version: 0.6
+ *
+ * Description: Slave script (run by init_forum-V.v.sql) 
+ *		Creates triggers.
+ ******************************************************************************/
+
